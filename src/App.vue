@@ -1,32 +1,46 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <HeaderNav />
+    <section class="conatiner__body">
+      <SideNav />
+      <div class="container__content">
+        <router-view />
+      </div>
+    </section>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+import HeaderNav from '@/components/nav/HeaderNav.vue';
+import SideNav from '@/components/nav/SideNav.vue';
+
+export default {
+  components: {
+    HeaderNav,
+    SideNav
+  }
+};
+</script>
+
+<style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: $text-white;
 }
 
-#nav {
-  padding: 30px;
+.conatiner__body {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  height: 100vh;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.container__content {
+  flex: 1 1 600px;
+  overflow-y: auto;
+  padding: 30px 30px 45px 40px;
+  padding: 1rem 1rem 1.5rem 2rem;
 }
 </style>
