@@ -2,12 +2,15 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-// import axios from 'axios';
 
+// Plugins:
+import ChoroplethMap from 'vue-choropleth';
+
+// Styles:
 import './assets/styles/main.scss';
 
+Vue.component(ChoroplethMap);
 Vue.config.productionTip = false;
-// Vue.prototype.$http = axios;
 
 new Vue({
   router,

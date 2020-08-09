@@ -1,76 +1,205 @@
 <template>
-  <div class="page__about">
-    <h1>Covid-19 Data</h1>
-    <!-- <h1>{{ test }}</h1> -->
+  <div class="page">
+    <h1>United States Covid-19 Data</h1>
     <div>
       <ul>
         <li>
+          <h2>
+            API Used:
+          </h2>
           <p>
-            API:
-            <a href="https://about-corona.net/" target="_blank"
-              >https://about-corona.net/</a
-            >
+            <a :href="covidAPI" target="_blank">{{ covidAPI }}</a>
           </p>
         </li>
         <li>
-          <p>File Structure:</p>
-          <div>
+          <h2>File Structure:</h2>
+          <div class="container__about file-structure">
             <pre>
               <code>{{ fileStructure }}</code>
             </pre>
           </div>
         </li>
-        <li><p>Dependencies Used:</p></li>
-        <li><p>Code Coverage:</p></li>
+        <li>
+          <h2>Dependencies Used:</h2>
+          <div class="container__about dependencies">
+            <ul>
+              <li v-for="(item, index) in dependencies" :key="index">
+                <p>
+                  <i :class="item.icon" class="fa" />
+                  <span>{{ item.name }}</span>
+                </p>
+                <a :href="item.url" target="_blank">{{ item.url }}</a>
+              </li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import CONSTANTS from '@/constants/aboutPage.js';
+import API from '@/constants/covidAPI.js';
 
 export default {
+  data() {
+    return {
+      dependencies: [
+        {
+          name: 'Axios',
+          icon: 'fa-taxi',
+          url: 'https://github.com/axios/axios'
+        },
+        {
+          name: 'SASS',
+          icon: 'fa-hand-spock-o',
+          url: 'https://sass-lang.com/'
+        },
+        {
+          name: 'Vue.js',
+          icon: 'fa-sitemap',
+          url: 'https://vuejs.org/'
+        },
+        {
+          name: 'Vue Router',
+          icon: 'fa-space-shuttle',
+          url: 'https://router.vuejs.org/'
+        },
+        {
+          name: 'Vuex',
+          icon: 'fa-diamond',
+          url: 'https://vuex.vuejs.org/'
+        }
+      ]
+    };
+  },
   computed: {
+    covidAPI() {
+      return API.BASE;
+    },
+
     fileStructure() {
-      return CONSTANTS.FILESTRUCTURE;
+      // eslint-disable-next-line no-use-before-define
+      const fileStructure = `
+        ├── /public
+        │     └── favicon.ico
+        │     └── index.html
+        ├── /src
+        │     ├── /assets
+        │     │     ├── /styles
+        │     │     └── /images
+        │     ├── /components
+        │     │     ├── /nav
+        │     │     └── ...
+        │     ├── /router
+        │     │     └── index.js
+        │     ├── /store
+        │     │     └── index.js
+        │     ├── /views
+        │     │     └── index.js
+        │     ├── App.vue
+        │     └── main.js
+        ├── /tests
+        │     └── /e2e
+        │     └── unit
+        ├── babel.config.js
+        ├── cypress.json
+        ├── package.json
+        ├── vue.confid.js
+        └── README.md`;
+
+      return this.trimNewLines(fileStructure);
     }
   },
 
-  created() {
-    console.log(41, CONSTANTS.FILESTRUCTURE);
-    console.log(42, CONSTANTS.test);
+  methods: {
+    /**
+     * Trim new line white spaces from multiline string.
+     * Adapted from:  https://gist.github.com/zenparsing/5dffde82d9acef19e43c
+     * @param  {String}
+     * @return {String}
+     */
+    trimNewLines(string) {
+      let size = -1;
+
+      return string.replace(/\n(\s+)/g, (m, m1) => {
+        if (size < 0) size = m1.replace(/\t/g, '    ').length;
+
+        return '\n' + m1.slice(Math.min(m1.length, size));
+      });
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.page__about {
-  * {
-    color: $text-gray;
-  }
-}
-
 h1 {
   margin-bottom: 1.5rem;
 }
 
+h2,
 li {
   margin-bottom: 1rem;
 }
 
-pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #f6f8fa;
+li {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h2 {
+  color: $text-gray-light;
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.container__about {
+  padding: 2rem 2rem 2.25rem 2rem;
   border-radius: 6px;
+
+  &.file-structure {
+    background-color: $gray-github-code-bg;
+    border: 1px solid darken($gray-github-code-bg, 10%);
+  }
+
+  &.dependencies {
+    background-color: $blue-bg;
+    border: 1px solid darken($blue-bg, 10%);
+    a,
+    i,
+    p {
+      color: darken($white, 10%);
+    }
+
+    i {
+      margin-right: 1rem;
+    }
+
+    p {
+      margin-bottom: 0.25rem;
+    }
+
+    a {
+      margin-left: 2rem;
+    }
+  }
+}
+
+/*
+  'pre' & 'code' styles adapted from Github README styles.
+*/
+pre {
+  font-size: 0.85rem;
+  margin: -1rem 0;
 }
 
 code {
   display: inline;
-  // max-width: auto;
   padding: 0;
   margin: 0;
   overflow: visible;
@@ -78,18 +207,13 @@ code {
   word-wrap: normal;
   background-color: initial;
   border: 0;
-
-  // padding: 0;
-  // margin: 0;
   font-size: 100%;
   word-break: normal;
   white-space: pre;
   background: transparent;
-  // border: 0;
-
   border-radius: 6px;
-
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   box-sizing: border-box;
+  color: $black;
 }
 </style>

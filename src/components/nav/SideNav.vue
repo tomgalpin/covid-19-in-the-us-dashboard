@@ -29,10 +29,6 @@
   </aside>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss" scoped>
 .side-nav {
   display: flex;

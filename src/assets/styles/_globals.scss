@@ -1,0 +1,40 @@
+// Global Styles
+body {
+  overflow-y: hidden;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $white;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+a {
+  color: $text-gray;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.page {
+  margin-bottom: 5rem;
+}

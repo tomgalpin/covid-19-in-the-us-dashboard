@@ -32,10 +32,6 @@
   </nav>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss" scoped>
 .nav-header {
   background-color: #0596d8;
@@ -59,7 +55,7 @@ li {
 
   p,
   i {
-    color: $text-white;
+    color: $white;
   }
 
   p {
