@@ -33,7 +33,11 @@ export default {
 .container__content {
   flex: 1 1 600px;
   overflow-y: auto;
-  // padding: 30px 30px 45px 40px;
   padding: 1rem 1rem 1.5rem 2rem;
+  background-color: #ecf0f5;
+}
+
+::v-deep .container__page {
+  margin-bottom: 5rem;
 }
 </style>

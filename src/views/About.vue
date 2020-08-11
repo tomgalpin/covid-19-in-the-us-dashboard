@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="container__page">
     <h1>United States Covid-19 Data</h1>
     <div>
       <ul>
