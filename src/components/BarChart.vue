@@ -1,6 +1,5 @@
 <script>
 import { Bar } from 'vue-chartjs';
-import { MONTHS } from '@/constants/months.js';
 
 export default {
   extends: Bar,

@@ -33,7 +33,9 @@
         :to="setMenuItemRoute(item.route)"
       >
         <a>
-          <span>{{ item.text }}</span>
+          <div>
+            <span>{{ setStateText(item.text) }}</span>
+          </div>
         </a>
       </router-link>
     </ul>
@@ -56,12 +58,36 @@ export default {
   },
 
   methods: {
+    /**
+     * Sets data attribute this.showDropdown
+     */
     toggleMenu() {
       this.showDropdown = !this.showDropdown;
     },
 
+    /**
+     * Returns a string that is appended to a route
+     * @param {String} string
+     * @return {String}
+     */
     setMenuItemRoute(string) {
       return `/state/${string}`;
+    },
+
+    /**
+     * Returns a string with a preceding 'the' article
+     * if in array.  Otherwise returns string.
+     * @param {String} text
+     * @return {String}
+     */
+    setStateText(text) {
+      const articleStates = [
+        'District Of Columbia',
+        'Northern Mariana Islands',
+        'Virgin Islands'
+      ];
+      const state = articleStates.includes(text) ? `the ${text}` : text;
+      return state;
     }
   }
 };
@@ -79,7 +105,7 @@ export default {
       padding: 0.25rem 0.25rem;
     }
 
-    span {
+    div {
       margin-left: 1.5rem;
     }
   }
@@ -91,14 +117,12 @@ export default {
   height: 0;
   line-height: 0;
   padding: 0 1em;
-  color: transparent;
 
   &.show-dropdown {
     height: 1185px;
     line-height: 1.5;
     padding-top: 1em;
     padding-bottom: 1em;
-    color: black;
   }
 }
 

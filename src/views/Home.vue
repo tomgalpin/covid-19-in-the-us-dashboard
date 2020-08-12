@@ -92,6 +92,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Gets API's for Barcharts and Totalsboxes
+     * @param {String} dailyAPI
+     * @param {String} totalsAPI
+     * @param {Boolean} isState
+     * @return {Object}
+     */
     async getAPIs(dailyAPI, totalsAPI, isState) {
       return await axios
         .all([axios.get(dailyAPI), axios.get(totalsAPI)])
@@ -115,7 +122,13 @@ export default {
         });
     },
 
+    /**
+     * Parent function that sets data attributes and calls API's
+     * based on if route is a State or US/Country.
+     * @return {String}
+     */
     async setContentByRoute() {
+      this.loaded = false;
       this.checkIsState();
       this.setTitle();
 
@@ -129,9 +142,6 @@ export default {
           totals: API.US_TOTALS
         }
       };
-
-      this.loaded = false;
-
       const response = await this.getAPIs(
         apis[this.apiRegion].daily,
         apis[this.apiRegion].totals,
@@ -139,16 +149,25 @@ export default {
       );
 
       this.setAPIData(response.dailyVals, response.totalVals);
-
       this.loaded = true;
     },
 
+    /**
+     * Checks if route has a state id and sets
+     * attributes based on $route.params:
+     * 'isState', 'stateID', 'apiRegion'.
+     */
     checkIsState() {
       this.isState = !!this.$route.params.id;
       this.stateID = this.isState ? this.$route.params.id : null;
       this.apiRegion = this.isState ? 'state' : 'us';
     },
 
+    /**
+     * Formats an 8-digit date into a readable date.
+     * @param {String} dateString
+     * @return {String}
+     */
     formattedDate(dateString) {
       const year = dateString.substring(0, 4);
       const month = dateString.substring(4, 6);
@@ -160,11 +179,15 @@ export default {
         year: 'numeric'
       });
 
-      console.log(date.getMonth());
-
       return dateFormatter.format(date);
     },
 
+    /**
+     * Sets data attributes:
+     * 'casesByDay', 'dateLabels', 'deathsByDay', 'totalCases', 'totalDeaths'.
+     * @param {Array} dailyVals
+     * @param {Object} totalVals
+     */
     setAPIData(dailyVals, totalVals) {
       this.casesByDay = this.setChartData(dailyVals).casesByDay;
       this.dateLabels = this.setChartData(dailyVals).dateLabels.reverse();
@@ -173,6 +196,11 @@ export default {
       this.totalDeaths = totalVals.death.toLocaleString();
     },
 
+    /**
+     * Parses data to be sent to BarChart
+     * @param {Array} data
+     * @return {Object}
+     */
     setChartData(data) {
       const chartsData = {
         casesByDay: [],
@@ -194,6 +222,10 @@ export default {
       return chartsData;
     },
 
+    /**
+     * Sets data attributes 'title'.
+     * @param {Array} data
+     */
     setTitle() {
       const titleBase = 'Covid-19 Cases in';
       const titleEnd = this.isState

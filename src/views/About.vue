@@ -114,7 +114,7 @@ export default {
 
   methods: {
     /**
-     * Trim new line white spaces from multiline string.
+     * Trims new line white spaces from multiline string.
      * Adapted from:  https://gist.github.com/zenparsing/5dffde82d9acef19e43c
      * @param  {String}
      * @return {String}
