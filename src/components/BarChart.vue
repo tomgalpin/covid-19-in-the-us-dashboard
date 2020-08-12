@@ -1,5 +1,6 @@
 <script>
 import { Bar } from 'vue-chartjs';
+import { MONTHS } from '@/constants/months.js';
 
 export default {
   extends: Bar,
@@ -24,6 +25,14 @@ export default {
   data() {
     return {
       options: {
+        layout: {
+          padding: {
+            left: 100,
+            right: 0,
+            top: 0,
+            bottom: 0
+          }
+        },
         responsive: true,
         maintainAspectRatio: false,
         legend: {
@@ -67,8 +76,15 @@ export default {
                 maxRotation: 0,
                 minRotation: 0,
                 callback: (value, index, values) => {
-                  if (value.day === '01') {
-                    return `${value.month} ${value.day}`;
+                  const noDupes = [...new Set(values)];
+                  const noDupesVal = noDupes[index];
+
+                  if (
+                    (typeof noDupesVal === 'string' ||
+                      noDupesVal instanceof String) &&
+                    noDupesVal.substring(4, 6) === '01'
+                  ) {
+                    return noDupesVal.substring(0, 6);
                   }
                 }
               }
@@ -80,6 +96,7 @@ export default {
               position: 'right',
               ticks: {
                 beginAtZero: true,
+                precision: 0,
                 callback: (value, index, values) => {
                   return this.numFormatter(value);
                 }
@@ -122,7 +139,6 @@ export default {
           return `${num / 1000000}M`;
           break;
         case num < 1000000000:
-          console.log('adsfasfsdfsd');
           return `${Math.round(num / 1000000)}M`;
           break;
         case num < 1000000000000:
@@ -140,13 +156,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.custom__tooltip {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: red;
-  border: 1px solid black;
-}
-</style>
