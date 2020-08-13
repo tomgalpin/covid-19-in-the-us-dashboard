@@ -31,8 +31,6 @@ export default {
 
 <style lang="scss" scoped>
 .container__totals {
-  position: absolute;
-  top: 50px;
   display: flex;
   background-color: $white;
   box-shadow: 0 1px 1px $gray-box-shadow-light;

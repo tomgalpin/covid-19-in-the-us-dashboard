@@ -49,11 +49,7 @@ export default {
           yPadding: 10,
           callbacks: {
             title: (tooltipItem, data) => {
-              const day = tooltipItem[0].xLabel.day;
-              const month = tooltipItem[0].xLabel.month;
-              const year = tooltipItem[0].xLabel.year;
-
-              return `${month} ${day}, ${year}`;
+              return tooltipItem[0].xLabel;
             },
             label: (tooltipItems, data) => {
               return `${

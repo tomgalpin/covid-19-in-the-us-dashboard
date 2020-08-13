@@ -34,10 +34,12 @@ export default {
   flex: 1 1 600px;
   overflow-y: auto;
   padding: 1rem 1rem 1.5rem 2rem;
-  background-color: #ecf0f5;
+  background-color: $gray-page-bg;
 }
 
 ::v-deep .container__page {
   margin-bottom: 5rem;
+  min-width: 600px;
+  max-width: 1100px;
 }
 </style>

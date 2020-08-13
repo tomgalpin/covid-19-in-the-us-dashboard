@@ -1,11 +1,11 @@
 <template>
   <div class="container__page">
     <div class="container__content">
-      <h1>Sorry, the page you are looking for doesn't exist.</h1>
+      <h1>{{ title }}</h1>
       <div class="container__gif">
         <img
-          src="@/assets/images/gifs/lost.gif"
-          alt="The ittle boy from the movie 'Up', eating a chocolate bar, thinking."
+          :src="require(`@/assets/images/gifs/${gif.fileName}`)"
+          :alt="gif.alt"
         />
       </div>
       <div>
@@ -15,14 +15,25 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.container__page {
-  text-align: center;
-}
+<script>
+export default {
+  computed: {
+    gif() {
+      return this.$store.state.errorContent.gif;
+    },
 
+    title() {
+      return this.$store.state.errorContent.title;
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
 .container__content {
   width: 80%;
-  margin: 0 auto;
+  margin: 1rem auto;
+  text-align: center;
 }
 
 h1,
@@ -31,8 +42,6 @@ h1,
 }
 
 a {
-  text-transform: uppercase;
-  font-weight: bold;
   font-size: 2rem;
 
   &:hover {

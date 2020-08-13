@@ -51,18 +51,20 @@ export default {
     }
   },
 
-  data() {
-    return {
-      showDropdown: false
-    };
+  computed: {
+    showDropdown() {
+      return this.$store.state.showStatesDropdown;
+    }
   },
 
   methods: {
     /**
-     * Sets data attribute this.showDropdown
+     * Sets commits/dispatches a Vuex.state mutation 'toggleStatesDropdown'
+     * 'toggleStatesDropdown' is set on the Vuex.state so as to handle opening
+     * the dropdown from a refresh and/or deeplink.
      */
     toggleMenu() {
-      this.showDropdown = !this.showDropdown;
+      this.$store.commit('toggleStatesDropdown');
     },
 
     /**

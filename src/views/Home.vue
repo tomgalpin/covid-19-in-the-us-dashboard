@@ -1,25 +1,30 @@
 <template>
   <div class="container__page">
-    <div class="container__title">
-      <h1>{{ title }}</h1>
+    <div v-if="!loaded">
+      <Loading />
     </div>
-    <div v-if="loaded" class="container__chart cases">
-      <TotalsBox :num="totalCases" :totalsMeta="routeData.casesTotalMeta" />
-      <BarChart
-        :labels="dateLabels"
-        :data="casesByDay"
-        :meta="routeData.dailyCasesMeta"
-        :height="chartHeight"
-      />
-    </div>
-    <div v-if="loaded" class="container__chart deaths">
-      <TotalsBox :num="totalDeaths" :totalsMeta="routeData.deathsTotalMeta" />
-      <BarChart
-        :labels="dateLabels"
-        :data="deathsByDay"
-        :meta="routeData.dailyDeathsMeta"
-        :height="chartHeight"
-      />
+    <div v-else>
+      <div class="container__title">
+        <h1>{{ title }}</h1>
+      </div>
+      <div v-if="loaded" class="container__chart cases">
+        <TotalsBox :num="totalCases" :totalsMeta="routeData.casesTotalMeta" />
+        <BarChart
+          :labels="dateLabels"
+          :data="casesByDay"
+          :meta="routeData.dailyCasesMeta"
+          :height="chartHeight"
+        />
+      </div>
+      <div v-if="loaded" class="container__chart deaths">
+        <TotalsBox :num="totalDeaths" :totalsMeta="routeData.deathsTotalMeta" />
+        <BarChart
+          :labels="dateLabels"
+          :data="deathsByDay"
+          :meta="routeData.dailyDeathsMeta"
+          :height="chartHeight"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -30,12 +35,14 @@ import API from '@/constants/covidAPI.js';
 import { STATE_CODES } from '@/constants/stateCodes.js';
 
 import BarChart from '@/components/BarChart';
+import Loading from '@/components/Loading';
 import TotalsBox from '@/components/TotalsBox';
 
 export default {
   components: {
     BarChart,
-    TotalsBox
+    TotalsBox,
+    Loading
   },
 
   data() {
@@ -45,7 +52,6 @@ export default {
       apiRegion: null,
       loaded: false,
       title: null,
-
       chartHeight: 300,
       casesByDay: null,
       dateLabels: null,
@@ -87,7 +93,7 @@ export default {
     }
   },
 
-  async mounted() {
+  mounted() {
     this.setContentByRoute();
   },
 
@@ -130,7 +136,6 @@ export default {
     async setContentByRoute() {
       this.loaded = false;
       this.checkIsState();
-      this.setTitle();
 
       const apis = {
         state: {
@@ -142,12 +147,14 @@ export default {
           totals: API.US_TOTALS
         }
       };
+
       const response = await this.getAPIs(
         apis[this.apiRegion].daily,
         apis[this.apiRegion].totals,
         this.isState
       );
 
+      this.setTitle();
       this.setAPIData(response.dailyVals, response.totalVals);
       this.loaded = true;
     },
@@ -156,11 +163,15 @@ export default {
      * Checks if route has a state id and sets
      * attributes based on $route.params:
      * 'isState', 'stateID', 'apiRegion'.
+     * Sets commits $store 'setStatesDropdown' to true,
+     * in case of a deeplink and/or refresh of a US States page.
      */
     checkIsState() {
       this.isState = !!this.$route.params.id;
       this.stateID = this.isState ? this.$route.params.id : null;
       this.apiRegion = this.isState ? 'state' : 'us';
+
+      if (this.isState) this.$store.commit('setStatesDropdown', true);
     },
 
     /**
@@ -239,6 +250,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container__title {
+  margin-bottom: 2.5rem;
+}
+
 .container__chart {
   position: relative;
 
@@ -247,7 +262,10 @@ export default {
   }
 }
 
-.container__title {
-  margin-bottom: 2.5rem;
+::v-deep .container__totals {
+  width: 25rem;
+  margin-bottom: 1.5rem;
+  // position: absolute;
+  // top: 50px;
 }
 </style>
