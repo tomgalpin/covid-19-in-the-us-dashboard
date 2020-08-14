@@ -50,6 +50,22 @@ export default {
     dependencies() {
       return [
         {
+          name: 'Vue.js',
+          icon: 'fa-sitemap',
+          url: 'https://vuejs.org/'
+        },
+        {
+          name: 'Vue Router',
+          icon: 'fa-space-shuttle',
+          url: 'https://router.vuejs.org/'
+        },
+
+        {
+          name: 'Vuex',
+          icon: 'fa-diamond',
+          url: 'https://vuex.vuejs.org/'
+        },
+        {
           name: 'Axios',
           icon: 'fa-taxi',
           url: 'https://github.com/axios/axios'
@@ -60,19 +76,9 @@ export default {
           url: 'https://sass-lang.com/'
         },
         {
-          name: 'Vue.js',
-          icon: 'fa-sitemap',
-          url: 'https://vuejs.org/'
-        },
-        {
-          name: 'Vue Router',
-          icon: 'fa-space-shuttle',
-          url: 'https://router.vuejs.org/'
-        },
-        {
-          name: 'Vuex',
-          icon: 'fa-diamond',
-          url: 'https://vuex.vuejs.org/'
+          name: 'Chart.js',
+          icon: 'fa-bar-chart ',
+          url: 'https://www.chartjs.org/'
         }
       ];
     },
