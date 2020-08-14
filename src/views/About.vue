@@ -105,7 +105,6 @@ export default {
         │     ├── App.vue
         │     └── main.js
         ├── /tests
-        │     └── /e2e
         │     └── unit
         ├── babel.config.js
         ├── cypress.json

@@ -46,7 +46,6 @@ A Vue.js app using Chart.js and https://api.covidtracking.com to display positiv
     │     ├── App.vue
     │     └── main.js
     ├── /tests
-    │     └── /e2e
     │     └── unit
     ├── babel.config.js
     ├── cypress.json
