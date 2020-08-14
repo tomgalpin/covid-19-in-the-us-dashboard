@@ -2,8 +2,7 @@
 A Vue.js app using Chart.js and https://api.covidtracking.com to display positive cases and deaths.
 
 ## Deploy
-- Live @: https://tomgalpin.github.io/
-  - From: https://github.com/gitname/
+- Live @: https://tomgalpin.github.io/covid-19-in-the-us-dashboard/
 
 ## Dependencies
 1. `Vue.js`
