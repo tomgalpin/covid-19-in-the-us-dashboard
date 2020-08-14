@@ -31,7 +31,7 @@
 
 <style lang="scss" scoped>
 .nav-header {
-  background-color: #0596d8;
+  background-color: $blue-header;
   display: flex;
   flex-flow: row nowrap;
   padding-left: 1rem;
