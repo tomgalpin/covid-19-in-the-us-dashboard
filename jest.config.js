@@ -1,9 +1,9 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/{components,router,store,views}/**/*.{vue,js}',
+    '<rootDir>/src/{components,views}/**/*.{vue,js}',
     // these are internal testing pages
-    '!<rootDir>/views/{test,testing}.vue'
+    '!<rootDir>/src/views/{test,testing}.vue'
   ],
   coverageDirectory: '<rootDir>/test/coverage',
   coverageReporters: ['json-summary', 'text', 'lcov', 'text-summary'],
