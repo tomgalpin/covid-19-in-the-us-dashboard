@@ -7,23 +7,23 @@ A Vue.js app using Chart.js and https://api.covidtracking.com to display positiv
 
 ## Dependencies
 1. `Vue.js`
-  - https://vuejs.org/
+    - https://vuejs.org/
 
 2. `Vue Router`
-  - https://router.vuejs.org/
+    - https://router.vuejs.org/
 
 3. `Vuex`
-  - https://vuex.vuejs.org/
+    - https://vuex.vuejs.org/
 
 4. `Axios`
-  - https://github.com/axios/axios
+    - https://github.com/axios/axios
 
 5. `SASS`
-  - https://sass-lang.com/
+    - https://sass-lang.com/
 
 6. `Chart.js`
-  - https://www.chartjs.org/
-  - https://vue-chartjs.org/
+    - https://www.chartjs.org/
+    - https://vue-chartjs.org/
 
 ## Structure
     .
