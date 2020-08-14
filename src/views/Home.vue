@@ -49,7 +49,6 @@ export default {
     return {
       isState: false,
       stateID: null,
-      apiRegion: null,
       loaded: false,
       title: null,
       chartHeight: 300,
@@ -58,11 +57,14 @@ export default {
       deathsByDay: null,
       totalCases: null,
       totalDeaths: null,
-
       dailyVals: null,
-      totalVals: null,
+      totalVals: null
+    };
+  },
 
-      routeData: {
+  computed: {
+    routeData() {
+      return {
         dailyCasesMeta: {
           backgroundColor: '#afadad',
           hoverBackgroundColor: '#0596d8',
@@ -83,8 +85,8 @@ export default {
           iconBG: '#dd4b3a',
           text: 'Confirmed Deaths'
         }
-      }
-    };
+      };
+    }
   },
 
   watch: {
@@ -99,41 +101,13 @@ export default {
 
   methods: {
     /**
-     * Gets API's for Barcharts and Totalsboxes
-     * @param {String} dailyAPI
-     * @param {String} totalsAPI
-     * @param {Boolean} isState
-     * @return {Object}
-     */
-    async getAPIs(dailyAPI, totalsAPI, isState) {
-      return await axios
-        .all([axios.get(dailyAPI), axios.get(totalsAPI)])
-        .then(
-          axios
-            .spread((...responses) => {
-              const dailyVals = responses[0].data;
-              const totalVals = isState
-                ? responses[1].data
-                : responses[1].data[0];
-
-              return {
-                dailyVals,
-                totalVals
-              };
-            })
-            .bind(this)
-        )
-        .catch(errors => {
-          console.log(errors);
-        });
-    },
-
-    /**
      * Parent function that sets data attributes and calls API's
      * based on if route is a State or US/Country.
      * @return {String}
      */
     async setContentByRoute() {
+      let response;
+
       this.loaded = false;
       this.checkIsState();
 
@@ -147,29 +121,35 @@ export default {
           totals: API.US_TOTALS
         }
       };
+      const apiRegion = this.isState ? 'state' : 'us';
 
-      const response = await this.getAPIs(
-        apis[this.apiRegion].daily,
-        apis[this.apiRegion].totals,
-        this.isState
-      );
+      try {
+        response = await this.getAPIs(
+          apis[apiRegion].daily,
+          apis[apiRegion].totals,
+          this.isState
+        );
+      } catch (error) {
+        this.$router.push({ name: 'Error' });
+      }
 
-      this.setTitle();
-      this.setAPIData(response.dailyVals, response.totalVals);
-      this.loaded = true;
+      if (response) {
+        this.setAPIData(response.dailyVals, response.totalVals);
+        this.setTitle();
+        this.loaded = true;
+      }
     },
 
     /**
      * Checks if route has a state id and sets
      * attributes based on $route.params:
-     * 'isState', 'stateID', 'apiRegion'.
+     * 'isState', 'stateID'.
      * Sets commits $store 'setStatesDropdown' to true,
      * in case of a deeplink and/or refresh of a US States page.
      */
     checkIsState() {
       this.isState = !!this.$route.params.id;
       this.stateID = this.isState ? this.$route.params.id : null;
-      this.apiRegion = this.isState ? 'state' : 'us';
 
       if (this.isState) this.$store.commit('setStatesDropdown', true);
     },
@@ -191,6 +171,37 @@ export default {
       });
 
       return dateFormatter.format(date);
+    },
+
+    /**
+     * Gets API's for Barcharts and Totalsboxes
+     * @param {String} dailyAPI
+     * @param {String} totalsAPI
+     * @param {Boolean} isState
+     * @return {Object}
+     */
+    getAPIs(dailyAPI, totalsAPI, isState) {
+      return axios
+        .all([axios.get(dailyAPI), axios.get(totalsAPI)])
+        .then(
+          axios
+            .spread((...responses) => {
+              const dailyVals = responses[0].data;
+              const totalVals = isState
+                ? responses[1].data
+                : responses[1].data[0];
+
+              return {
+                dailyVals,
+                totalVals
+              };
+            })
+            .bind(this)
+        )
+        .catch(error => {
+          throw error;
+          return { error: true };
+        });
     },
 
     /**
@@ -241,9 +252,9 @@ export default {
       const titleBase = 'Covid-19 Cases in';
       const titleEnd = this.isState
         ? `${STATE_CODES[this.stateID].text}`
-        : 'U.S.';
+        : 'the U.S.';
 
-      this.title = `${titleBase} ${titleEnd} `;
+      this.title = `${titleBase} ${titleEnd}`;
     }
   }
 };
@@ -265,7 +276,5 @@ export default {
 ::v-deep .container__totals {
   width: 25rem;
   margin-bottom: 1.5rem;
-  // position: absolute;
-  // top: 50px;
 }
 </style>

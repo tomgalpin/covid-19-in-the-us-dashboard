@@ -42,9 +42,13 @@
 import API from '@/constants/covidAPI.js';
 
 export default {
-  data() {
-    return {
-      dependencies: [
+  computed: {
+    covidAPI() {
+      return API.BASE;
+    },
+
+    dependencies() {
+      return [
         {
           name: 'Axios',
           icon: 'fa-taxi',
@@ -70,12 +74,7 @@ export default {
           icon: 'fa-diamond',
           url: 'https://vuex.vuejs.org/'
         }
-      ]
-    };
-  },
-  computed: {
-    covidAPI() {
-      return API.BASE;
+      ];
     },
 
     fileStructure() {

@@ -5,21 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    errorContent: {
-      gif: {
-        fileName: null,
-        alt: null
-      },
-      title: null
-    },
     showStatesDropdown: false
   },
 
   mutations: {
-    setErrorContent(state, data) {
-      state.errorContent = data;
-    },
-
     setStatesDropdown(state, data) {
       state.showStatesDropdown = data;
     },

@@ -13,11 +13,9 @@
               </a>
             </router-link>
           </li>
-
           <li>
             <AnimatedSubMenu :content="statesMenu" />
           </li>
-
           <li>
             <router-link tag="div" class="link__page" to="/about">
               <a>
@@ -59,7 +57,7 @@ export default {
      * @return {Array}
      */
     setMenuItems(array) {
-      const statesArray = Object.values(STATE_CODES);
+      const statesArray = Object.values(array);
       const sortedStatesArray = this.sortAlphabetically(statesArray, 'text');
 
       return sortedStatesArray.map(item => {

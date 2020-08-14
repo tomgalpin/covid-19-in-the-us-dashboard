@@ -59,15 +59,6 @@ export default {
 
   methods: {
     /**
-     * Sets commits/dispatches a Vuex.state mutation 'toggleStatesDropdown'
-     * 'toggleStatesDropdown' is set on the Vuex.state so as to handle opening
-     * the dropdown from a refresh and/or deeplink.
-     */
-    toggleMenu() {
-      this.$store.commit('toggleStatesDropdown');
-    },
-
-    /**
      * Returns a string that is appended to a route
      * @param {String} string
      * @return {String}
@@ -88,8 +79,17 @@ export default {
         'Northern Mariana Islands',
         'Virgin Islands'
       ];
-      const state = articleStates.includes(text) ? `the ${text}` : text;
+      const state = articleStates.includes(text) ? `The ${text}` : text;
       return state;
+    },
+
+    /**
+     * Sets commits/dispatches a Vuex.state mutation 'toggleStatesDropdown'
+     * 'toggleStatesDropdown' is set on the Vuex.state so as to handle opening
+     * the dropdown from a refresh and/or deeplink.
+     */
+    toggleMenu() {
+      this.$store.commit('toggleStatesDropdown');
     }
   }
 };

@@ -1,9 +1,6 @@
 <template>
   <nav class="nav-header" role="navigation">
     <div class="container__content">
-      <span class="">
-        <a href="" alt="logo" class="" />
-      </span>
       <div>
         <ul class="nav-items">
           <li>

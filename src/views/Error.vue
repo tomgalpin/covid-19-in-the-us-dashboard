@@ -1,11 +1,11 @@
 <template>
   <div class="container__page">
     <div class="container__content">
-      <h1>{{ title }}</h1>
+      <h1>Sorry, the page you are looking for doesn't exist.</h1>
       <div class="container__gif">
         <img
-          :src="require(`@/assets/images/gifs/${gif.fileName}`)"
-          :alt="gif.alt"
+          src="@/assets/images/gifs/lost.gif"
+          alt="The little boy from the movie 'Up', eating a chocolate bar, thinking."
         />
       </div>
       <div>
@@ -14,20 +14,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  computed: {
-    gif() {
-      return this.$store.state.errorContent.gif;
-    },
-
-    title() {
-      return this.$store.state.errorContent.title;
-    }
-  }
-};
-</script>
 
 <style lang="scss" scoped>
 .container__content {
