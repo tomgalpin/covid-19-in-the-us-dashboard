@@ -90,7 +90,6 @@ export default {
   flex-flow: column nowrap;
   z-index: 30;
   padding: 1rem 0 2rem 0;
-  margin-bottom: 5rem;
   justify-content: flex-start;
   background-color: $gray-sidebar;
   overflow-y: scroll;
@@ -100,6 +99,7 @@ export default {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
+  margin-bottom: 5rem;
 
   li {
     position: relative;
