@@ -6,5 +6,8 @@ module.exports = {
       }
     }
   },
-  publicPath: '/covid-19-in-the-us-dashboard/'
+  publicPath:
+    process.env.NODE_ENV === 'production'
+      ? '/covid-19-in-the-us-dashboard/'
+      : '/'
 };
