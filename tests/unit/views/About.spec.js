@@ -5,14 +5,14 @@ import VueRouter from 'vue-router';
 const h2Texts = ['API Used:', 'File Structure:', 'Dependencies Used:'];
 const mockDependencies = [
   {
-    name: 'Axios',
-    icon: 'fa-taxi',
-    url: 'https://github.com/axios/axios'
+    name: 'Vue.js',
+    icon: 'fa-sitemap',
+    url: 'https://vuejs.org/'
   },
   {
-    name: 'SASS',
-    icon: 'fa-hand-spock-o',
-    url: 'https://sass-lang.com/'
+    name: 'Vue Router',
+    icon: 'fa-space-shuttle',
+    url: 'https://router.vuejs.org/'
   }
 ];
 
@@ -43,7 +43,7 @@ describe('About.vue', () => {
 
     expect(wrapper.find('code').text()).toContain('├── /public');
 
-    expect(lis.length).toBe(5);
+    expect(lis.length).toBe(6);
     mockDependencies.forEach((item, index) => {
       const liElement = lis.at(index);
 
