@@ -1,5 +1,6 @@
 <template>
   <div class="container__page">
+    <Map />
     <div v-if="!loaded">
       <Loading />
     </div>
@@ -36,13 +37,15 @@ import { STATE_CODES } from '@/constants/stateCodes.js';
 
 import BarChart from '@/components/BarChart';
 import Loading from '@/components/Loading';
+import Map from '@/components/Map';
 import TotalsBox from '@/components/TotalsBox';
 
 export default {
   components: {
     BarChart,
-    TotalsBox,
-    Loading
+    Loading,
+    Map,
+    TotalsBox
   },
 
   data() {

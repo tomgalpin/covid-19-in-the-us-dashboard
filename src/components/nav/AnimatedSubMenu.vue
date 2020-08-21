@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-on:click="toggleMenu" class="link__page">
+    <div @click="toggleMenu" class="link__page">
       <a>
         <div class="menu-title">
           <div>
