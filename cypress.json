@@ -1,8 +1,0 @@
-{
-  "pluginsFile": "tests/e2e/plugins/index.js",
-  "type": "module",
-  "env": {
-    "stateCodes": "@/constants/stateCodes.js",
-    "testies": "tomtomt"
-  }
-}
